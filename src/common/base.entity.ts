@@ -1,7 +1,11 @@
-import { CreateDateColumn, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 export abstract class BaseEntity {
-  @PrimaryColumn({ comment: '主键', name: 'id', type: 'bigint' })
+  @PrimaryGeneratedColumn({ comment: '主键', name: 'id', type: 'bigint' })
   id: number;
   @CreateDateColumn({ comment: '创建时间' })
   createTime: Date;

@@ -6,6 +6,7 @@ import { UserEntity } from '../entity/user';
 import { UserVO } from '../vo/user';
 import { R } from '../../../common/base.error.util';
 import * as bcrypt from 'bcryptjs';
+import { omit } from 'lodash';
 
 @Provide()
 export class UserService extends BaseService<UserEntity> {
@@ -26,8 +27,9 @@ export class UserService extends BaseService<UserEntity> {
     if (isExist) throw R.error('手机号存在');
     isExist = (await this.userModel.countBy({ email })) > 0;
     if (isExist) throw R.error('邮箱存在');
-    entity.password = bcrypt.hashSync('123456', 'BUNGA');
+    entity.password = bcrypt.hashSync('123456', 10);
     await this.userModel.save(entity);
-    return entity.vo();
+    console.log('entity.vo', typeof entity);
+    return omit(entity, ['password']);
   }
 }

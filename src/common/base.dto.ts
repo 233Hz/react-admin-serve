@@ -1,7 +1,7 @@
 import { ApiProperty } from '@midwayjs/swagger';
 import { BaseEntity } from './base.entity';
 import { Rule, RuleType } from '@midwayjs/validate';
-import { omit } from '../utils/utils';
+import { omit } from 'lodash';
 
 export class BaseDTO<T extends BaseEntity> {
   @ApiProperty()
@@ -9,9 +9,6 @@ export class BaseDTO<T extends BaseEntity> {
   id: number;
 
   entity(): T {
-    return omit(this as unknown as T, [
-      'createTime',
-      'updateTime',
-    ]) as unknown as T;
+    return omit(this, ['createTime', 'updateTime']) as unknown as T;
   }
 }

@@ -1,15 +1,15 @@
 import {
   Body,
   Controller,
-  Get,
+  // Get,
   Inject,
   Post,
   Provide,
-  Query,
+  // Query,
   ALL,
-  Put,
-  Param,
-  Del,
+  // Put,
+  // Param,
+  // Del,
 } from '@midwayjs/decorator';
 import { UserDTO } from '../dto/user';
 import { UserService } from '../service/user';
@@ -20,7 +20,7 @@ export class UserController {
   @Inject()
   userService: UserService;
 
-  @Post('/', { description: '创建用户' })
+  @Post('', { description: '创建用户' })
   async create(@Body(ALL) data: UserDTO) {
     return await this.userService.createUser(data.entity());
   }

@@ -28,7 +28,7 @@ export class HomeController {
 
   @Get('/i18n')
   async i18n(): Promise<string> {
-    return await this.i18nService.translate('hello', { locale: 'en_US' });
+    return await this.i18nService.translate('hello', { locale: 'zh_CN' });
   }
 
   @Get('/test-common-error')

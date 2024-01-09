@@ -20,11 +20,17 @@ export class UserDTO extends BaseDTO<UserEntity> {
   nickname: string;
 
   @ApiProperty({ description: '手机号' })
-  @Rule(PhoneRule.error(R.validateError('手机号格式不正确')))
+  @Rule(
+    PhoneRule.required().error(
+      R.validateError('手机号不能为空/手机号格式不正确')
+    )
+  )
   phone: string;
 
   @ApiProperty({ description: '邮箱' })
-  @Rule(EmailRule.error(R.validateError('邮箱格式不正确')))
+  @Rule(
+    EmailRule.required().error(R.validateError('邮箱不能为空/邮箱格式不正确'))
+  )
   email: string;
 
   @ApiProperty({ description: '性别(1.男 2.女)', nullable: true })

@@ -6,6 +6,7 @@ import * as orm from '@midwayjs/typeorm';
 import * as redis from '@midwayjs/redis';
 import * as swagger from '@midwayjs/swagger';
 import * as i18n from '@midwayjs/i18n';
+import * as captcha from '@midwayjs/captcha';
 import { join } from 'path';
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
@@ -20,6 +21,7 @@ import { CommonErrorFilter } from './filter/common.filter';
     orm,
     redis,
     i18n,
+    captcha,
     {
       component: swagger,
       enabledEnvironment: ['local'],
