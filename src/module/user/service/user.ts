@@ -29,7 +29,6 @@ export class UserService extends BaseService<UserEntity> {
     if (isExist) throw R.error('邮箱存在');
     entity.password = bcrypt.hashSync('123456', 10);
     await this.userModel.save(entity);
-    console.log('entity.vo', typeof entity);
     return omit(entity, ['password']);
   }
 }

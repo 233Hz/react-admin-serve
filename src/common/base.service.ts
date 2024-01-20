@@ -17,15 +17,12 @@ export abstract class BaseService<T extends BaseEntity> {
     return await this.getModel().save(entity);
   }
 
-  async remove(entity: T) {
-    return await this.getModel().remove(entity);
+  async delById(id: number) {
+    return await this.getModel().delete(id);
   }
 
   async getById(id: number) {
-    return await this.getModel()
-      .createQueryBuilder('model')
-      .where('model,id = :id', { id })
-      .getOne();
+    return await this.getModel().findOneBy({ id } as FindOptionsWhere<T>);
   }
 
   async page(current = 0, size = 10, where?: FindOptionsWhere<T>) {

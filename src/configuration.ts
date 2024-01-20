@@ -10,10 +10,9 @@ import * as captcha from '@midwayjs/captcha';
 import { join } from 'path';
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
-import { ReportMiddleware } from './middleware/report.middleware';
 import { ValidateErrorFilter } from './filter/validate.filter';
 import { CommonErrorFilter } from './filter/common.filter';
-
+import { AuthMiddleware } from './middleware/auth.middleware';
 @Configuration({
   imports: [
     koa,
@@ -39,7 +38,7 @@ export class MainConfiguration {
 
   async onReady() {
     // add middleware
-    this.app.useMiddleware([ReportMiddleware]);
+    this.app.useMiddleware([AuthMiddleware]);
     this.app.useFilter([ValidateErrorFilter, CommonErrorFilter]);
     // add filter
     // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);

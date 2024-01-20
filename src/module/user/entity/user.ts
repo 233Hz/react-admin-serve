@@ -14,10 +14,10 @@ export class UserEntity extends BaseEntity {
   @Column({ comment: '密码' })
   password: string;
 
-  @Column({ comment: '邮箱', nullable: true })
+  @Column({ comment: '邮箱' })
   email: string;
 
-  @Column({ comment: '电话', nullable: true })
+  @Column({ comment: '电话' })
   phone: string;
 
   @Column({ comment: '性别(1.男 2.女)', nullable: true })

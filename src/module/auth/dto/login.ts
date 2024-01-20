@@ -19,6 +19,6 @@ export class LoginDTO {
   captcha: string;
 
   @ApiProperty({ description: '公钥' })
-  // @Rule(RuleType.string().required().error(R.validateError('公钥不能为空')))
+  @Rule(RuleType.string().required().error(R.validateError('公钥不能为空')))
   publicKey: string;
 }
