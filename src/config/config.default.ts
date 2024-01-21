@@ -30,6 +30,11 @@ export default {
       db: 0,
     },
   },
+  swagger: {
+    title: 'React Admin API',
+    version: '1.0.0',
+    authType: 'basic',
+  },
   i18n: {
     localeTable: {
       en_US: require('../locales/en_US.json'),

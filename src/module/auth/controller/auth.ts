@@ -17,6 +17,7 @@ import { RefreshToken } from '../dto/refresh.token';
 import { NotLogin } from '../../../decorator/not.login';
 import { Context } from '@midwayjs/koa';
 import { UserService } from '../../user/service/user';
+import { ApiBasicAuth } from '@midwayjs/swagger';
 
 @Provide()
 @Controller('/auth')
@@ -50,6 +51,7 @@ export class AuthController {
   }
 
   @NotLogin()
+  @ApiBasicAuth()
   @Post('/login', { description: '登录' })
   async login(@Body(ALL) loginDTO: LoginDTO) {
     const { captchaId, captcha, publicKey } = loginDTO;

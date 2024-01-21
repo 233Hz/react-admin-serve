@@ -7,7 +7,6 @@ import {
   Provide,
   Query,
   ALL,
-  Put,
   Param,
   Del,
 } from '@midwayjs/decorator';
