@@ -8,8 +8,8 @@
       "name": "React Admin Serve",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "node",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "npm",
       "windows": {
         "runtimeExecutable": "npm.cmd"
       },
@@ -18,7 +18,9 @@
         "NODE_ENV": "local"
       },
       "console": "integratedTerminal",
+      "protocol": "auto",
       "restart": true,
+      "port": 7001,
       "autoAttachChildProcesses": true
     }
   ]

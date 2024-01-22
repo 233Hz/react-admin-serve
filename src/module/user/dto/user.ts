@@ -5,7 +5,7 @@ import { EmailRule, PhoneRule } from '../../../common/common.validate.rule';
 import { BaseDTO } from '../../../common/base.dto';
 import { UserEntity } from '../entity/user';
 
-export enum Gender {
+export enum GenderEnum {
   MAN = 1,
   GIRL = 2,
 }
@@ -35,7 +35,7 @@ export class UserDTO extends BaseDTO<UserEntity> {
 
   @ApiProperty({ description: '性别(1.男 2.女)', nullable: true })
   @Rule(
-    RuleType.valid(...Object.values(Gender)).error(
+    RuleType.valid(...Object.values(GenderEnum)).error(
       R.validateError('性别不正确(1.男 2.女)')
     )
   )

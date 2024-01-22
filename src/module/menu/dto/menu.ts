@@ -10,6 +10,10 @@ export enum MenuType {
 }
 
 export class MenuDTO extends BaseDTO<MenuEntity> {
+  @ApiProperty({ description: '父节点' })
+  @Rule(RuleType.number().required().error(R.validateError('父节点不能为空')))
+  pid: number;
+
   @ApiProperty({ description: '菜单名称' })
   @Rule(RuleType.string().required().error(R.validateError('菜单名称不能为空')))
   name: string;

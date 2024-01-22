@@ -1,7 +1,8 @@
 import { Inject } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsSelect, FindOptionsWhere, In, Repository } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { R } from './base.error.util';
 
 export abstract class BaseService<T extends BaseEntity> {
   @Inject()
@@ -14,6 +15,8 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   async update(entity: T) {
+    const { id } = entity;
+    if (!id) throw R.validateError('id 不能为空');
     return await this.getModel().save(entity);
   }
 
@@ -21,13 +24,27 @@ export abstract class BaseService<T extends BaseEntity> {
     return await this.getModel().delete(id);
   }
 
-  async getById(id: number) {
+  async findById(id: number) {
     return await this.getModel().findOneBy({ id } as FindOptionsWhere<T>);
   }
 
-  async page(current = 0, size = 10, where?: FindOptionsWhere<T>) {
+  async findByIds(ids: number[]) {
+    return await this.getModel().findBy({ id: In(ids) } as FindOptionsWhere<T>);
+  }
+
+  async findOne(where: FindOptionsWhere<T>) {
+    return await this.getModel().findOneBy(where);
+  }
+
+  async page(
+    current = 0,
+    size = 10,
+    where?: FindOptionsWhere<T>,
+    select?: FindOptionsSelect<T>
+  ) {
     const order: any = { createTime: 'desc' };
     const [data, total] = await this.getModel().findAndCount({
+      select,
       where,
       order,
       skip: current * size,
@@ -39,9 +56,13 @@ export abstract class BaseService<T extends BaseEntity> {
     };
   }
 
-  async list(where?: FindOptionsWhere<T>) {
+  async list(where?: FindOptionsWhere<T>, select?: FindOptionsSelect<T>) {
     const order: any = { createTime: 'desc' };
-    const data = await this.getModel().find({ where, order });
+    const data = await this.getModel().find({
+      select,
+      where,
+      order,
+    });
     return data.map(entity => entity.vo());
   }
 }

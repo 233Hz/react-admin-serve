@@ -33,7 +33,9 @@ export default {
   swagger: {
     title: 'React Admin API',
     version: '1.0.0',
-    authType: 'basic',
+    auth: {
+      authType: 'bearer',
+    },
   },
   i18n: {
     localeTable: {

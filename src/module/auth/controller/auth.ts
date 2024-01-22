@@ -6,7 +6,6 @@ import {
   Headers,
   Inject,
   Post,
-  Provide,
 } from '@midwayjs/decorator';
 import { AuthService } from '../service/auth';
 import { CaptchaService } from '@midwayjs/captcha';
@@ -17,9 +16,9 @@ import { RefreshToken } from '../dto/refresh.token';
 import { NotLogin } from '../../../decorator/not.login';
 import { Context } from '@midwayjs/koa';
 import { UserService } from '../../user/service/user';
-import { ApiBasicAuth } from '@midwayjs/swagger';
+import { ApiBearerAuth } from '@midwayjs/swagger';
 
-@Provide()
+@ApiBearerAuth()
 @Controller('/auth')
 export class AuthController {
   @Inject()
@@ -51,7 +50,6 @@ export class AuthController {
   }
 
   @NotLogin()
-  @ApiBasicAuth()
   @Post('/login', { description: '登录' })
   async login(@Body(ALL) loginDTO: LoginDTO) {
     const { captchaId, captcha, publicKey } = loginDTO;
@@ -85,6 +83,6 @@ export class AuthController {
 
   @Get('/userInfo', { description: '获取用户信息' })
   async getUserInfo() {
-    return this.userService.getById(+this.ctx.userInfo.userId);
+    return this.userService.findById(+this.ctx.userInfo.userId);
   }
 }

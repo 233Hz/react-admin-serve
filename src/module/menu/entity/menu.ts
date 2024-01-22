@@ -4,6 +4,8 @@ import { MenuVO } from '../vo/menu';
 
 @Entity('sys_menu')
 export class MenuEntity extends BaseEntity {
+  @Column({ comment: '父节点(0 跟节点)', default: 0 })
+  pid: number;
   @Column({ comment: '菜单名称' })
   name: string;
   @Column({ comment: '菜单编号' })

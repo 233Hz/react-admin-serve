@@ -7,28 +7,35 @@ import {
   Inject,
   Param,
   Post,
-  Provide,
   Query,
 } from '@midwayjs/core';
 import { RoleService } from '../service/role';
 import { RolePageQuery } from '../dto/role.page.query';
 import { RoleDTO } from '../dto/role';
+import { RoleMenuService } from '../../role.menu/service/role.menu';
+import { RoleMenuDTO } from '../../role.menu/dto/role.menu';
 
-@Provide()
 @Controller('/role')
 export class RoleController {
   @Inject()
   roleService: RoleService;
 
+  @Inject()
+  roleMenuService: RoleMenuService;
+
   @Get('/list', { description: '查询所有' })
   async list() {
-    return await this.roleService.list();
+    return await this.roleService.list(null, {
+      id: true,
+      name: true,
+      code: true,
+    });
   }
 
-  @Get('/page', { description: '分页' })
+  @Get('/page', { description: '分页查询' })
   async page(@Query(ALL) query: RolePageQuery) {
-    const { current, size, name, code } = query;
-    return await this.roleService.page(current, size, { name, code });
+    const { current, size, ...argsQuery } = query;
+    return await this.roleService.page(current, size, { ...argsQuery });
   }
 
   @Post('/saveOrUpdate', { description: '新增/修改' })
@@ -39,5 +46,10 @@ export class RoleController {
   @Del('/:id', { description: '删除' })
   async remove(@Param('id') id: number) {
     await this.roleService.delById(id);
+  }
+
+  @Post('/setRoleMenu', { description: '设置角色菜单权限' })
+  async setRoleMenu(@Body(ALL) data: RoleMenuDTO) {
+    return await this.roleMenuService.setRoleMenu(data);
   }
 }

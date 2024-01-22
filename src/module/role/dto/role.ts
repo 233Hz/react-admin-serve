@@ -5,14 +5,14 @@ import { RoleEntity } from '../entity/role';
 import { R } from '../../../common/base.error.util';
 
 export class RoleDTO extends BaseDTO<RoleEntity> {
-  @ApiProperty({ description: '角色名称' })
+  @ApiProperty({ type: String, description: '角色名称', required: true })
   @Rule(RuleType.string().required().error(R.validateError('角色名称不能为空')))
   name: string;
 
-  @ApiProperty({ description: '角色编号' })
+  @ApiProperty({ type: String, description: '角色编号', required: true })
   @Rule(RuleType.string().required().error(R.validateError('角色编号不能为空')))
   code: string;
 
-  @ApiProperty({ description: '角色描述' })
+  @ApiProperty({ type: String, description: '角色描述' })
   desc?: string;
 }
