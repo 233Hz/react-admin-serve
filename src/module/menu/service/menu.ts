@@ -32,7 +32,7 @@ export class MenuService extends BaseService<MenuEntity> {
 
   async treeList() {
     const menuTree = await this.redisService.get('menu:tree');
-    if (menuTree) return JSON.parse(menuTree);
+    if (menuTree) return JSON.parse(menuTree) as MenuVO[];
     const menuList: MenuVO[] = await this.menuModel.find();
     const menuMap = {};
     menuList.forEach(menu => (menuMap[menu.id] = menu));
